@@ -1,7 +1,7 @@
 from django.db import models
 
 class Descripcion(models.Model):
-    nombre = models.CharField(max_length=500000000)
+    nombre = models.CharField(max_length=50000)
 
     def __str__(self):
         return '{}'.format(self.nombre)
