@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
+from django.views.generic.detail import DetailView
 from apps.tipo.models import Descripcion, Receta
 from apps.tipo.forms import DescripcionForm, RecetaForm
 
@@ -10,11 +11,11 @@ def index_tipo(request):
     return HttpResponse("Soy la pagina principal de la app tipo")
 
 
-class RecetaList(ListView):
+class TipoList(ListView):
     model = Receta
     template_name = 'tipo/tipo_list.html'
 
-class RecetaCreate(CreateView):
+class TipoCreate(CreateView):
     model = Receta
     template_name = 'tipo/tipo_form.html'
     form_class = RecetaForm
@@ -22,7 +23,7 @@ class RecetaCreate(CreateView):
     success_url = reverse_lazy('tipo_listar')
 
     def get_context_data(self, **kwargs):
-        context = super(RecetaCreate, self).get_context_data(**kwargs)
+        context = super(TipoCreate, self).get_context_data(**kwargs)
         if 'form' not in context:
             context['form'] = self.get_form_class(self.request.GET)
         if 'form2' not in context:
@@ -41,7 +42,7 @@ class RecetaCreate(CreateView):
         else:
             return self.render_to_response(self.get_context_data(form=form, form2=form2))
 
-class RecetaUpdate(UpdateView):
+class TipoUpdate(UpdateView):
     model = Receta
     second_model = Descripcion
     template_name = 'tipo/tipo_form.html'
@@ -50,7 +51,7 @@ class RecetaUpdate(UpdateView):
     success_url = reverse_lazy('tipo_listar')
 
     def get_context_data(self, **kwargs):
-        context = super(RecetaUpdate, self).get_context_data(**kwargs)
+        context = super(TipoUpdate, self).get_context_data(**kwargs)
         pk = self.kwargs.get('pk', 0)
         plato = self.model.objects.get(id=pk)
         descripcion = self.second_model.objects.get(id=plato.descripcion_id)
@@ -67,18 +68,19 @@ class RecetaUpdate(UpdateView):
         plato = self.model.objects.get(id=id_plato)
         descripcion = self.second_model.objects.get(id=plato.descripcion_id)
         form = self.form_class(request.POST, instance=plato)
-        form2 = self.second_form_class(request.POST, instance=plato)
+        form2 = self.second_form_class(request.POST, instance=descripcion)
         if form.is_valid and form2.is_valid():
             form.save()
             form2.save()
-            return HttpResponseRedirect(self.get_succes_url())
+            return HttpResponseRedirect(self.get_success_url())
         else:
-            return HttpResponseRedirect(self.get_succes_url())
+            return HttpResponseRedirect(self.get_success_url())
 
-class RecetaDelete(DeleteView):
+class TipoDelete(DeleteView):
     model = Receta
     template_name = 'tipo/tipo_delete.html'
     success_url = reverse_lazy('tipo_listar')
 
-
-
+class TipoDetail(DetailView):
+    model = Receta
+    template_name = 'tipo/tipo_detalle.html'

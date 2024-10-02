@@ -4,7 +4,7 @@ from apps.recetas.forms import RecetasForm
 from apps.recetas.models import Recetas
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-
+from django.shortcuts import render, get_object_or_404
 
 def index(request):
     return render(request, 'recetas/index.html')
@@ -67,3 +67,6 @@ class RecetasDelete(DeleteView):
     template_name = 'recetas/recetas_delete.html'
     success_url = reverse_lazy('recetas_listar')
 
+def receta_detalle(request, id):
+    receta = get_object_or_404(Recetas, id=id)
+    return render(request, 'recetas/receta_detalle.html', {'receta': receta})

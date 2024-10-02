@@ -18,9 +18,10 @@
             <td>{{ plato.descripcion.nombre }}</td>
 
             <td>
-                <a class="btn btn-primary" href="#">Editar</a>
-                <a class="btn btn-danger" href="#">Eliminar</a>
-                <a class="btn btn-success" href="#">Ver</a>
+                <a class="btn btn-primary" href="{% url 'tipo_editar' plato.id %}">Editar</a>
+                <a class="btn btn-danger" href="{% url 'tipo_eliminar' plato.id %}">Eliminar</a>
+                <a class="btn btn-success" href="{% url 'tipo_detalle' plato.id %}">Ver</a>
+
             </td>
         </tr>
         {% endfor %}

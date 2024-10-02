@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import pymysql
+
+pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from django.urls import reverse_lazy
@@ -42,7 +45,7 @@ INSTALLED_APPS = [
     'apps.tipo',
     'apps.recetas',
     'apps.usuario',
-
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -99,6 +102,9 @@ DATABASES = {
         'PASSWORD':'',
         'HOST': '127.0.0.1',
         'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION'"
+        }
     }
 }
 

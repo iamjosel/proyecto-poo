@@ -30,5 +30,5 @@ class RecetasForm(forms.ModelForm):
             'pasos': forms.Textarea(attrs={'class': 'form-control'}),
             'ingredientes': forms.Textarea(attrs={'class': 'form-control'}),
             'descripcion': forms.Textarea(attrs={'class': 'form-control'}),
-            #'imagen':FiledImage(),
+            'imagen': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
