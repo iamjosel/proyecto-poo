@@ -1,2 +1,1 @@
-# Recetas
-producto final
+# proyecto-poo
