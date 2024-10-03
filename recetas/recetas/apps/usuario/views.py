@@ -13,7 +13,7 @@ class RegistroUsuario(CreateView):
     model = User
     template_name = "usuario/registrar.html"
     form_class = RegistroForm
-    success_url = reverse_lazy('mascota_listar')
+    success_url = reverse_lazy('registrar')
 
 class UserAPI(APIView):
     serializer = UserSerializer

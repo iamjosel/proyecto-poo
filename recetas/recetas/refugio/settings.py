@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'apps.tipo',
     'apps.recetas',
     'apps.usuario',
+    'apps.chefs',
     'rest_framework',
 ]
 
