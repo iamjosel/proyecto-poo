@@ -1,0 +1,110 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="form-group">
+                <label>Tipo de Documento:</label>
+                {{ form.tipo_documento }}
+                {% if form.tipo_documento.errors %}
+                    <div class="alert alert-danger">{{ form.tipo_documento.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="form-group">
+                <label>Nombres:</label>
+                {{ form.nombres }}
+                {% if form.nombres.errors %}
+                    <div class="alert alert-danger">{{ form.nombres.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="form-group">
+                <label>Apellidos:</label>
+                {{ form.apellidos }}
+                {% if form.apellidos.errors %}
+                    <div class="alert alert-danger">{{ form.apellidos.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="form-group">
+                <label>Correo Electrónico:</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <div class="alert alert-danger">{{ form.email.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="form-group">
+                <label>Nombre de Usuario:</label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <div class="alert alert-danger">{{ form.username.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="form-group">
+                <label>Número de Celular:</label>
+                {{ form.celular }}
+                {% if form.celular.errors %}
+                    <div class="alert alert-danger">{{ form.celular.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="form-group">
+                <label>Instagram:</label>
+                {{ form.instagram }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="form-group">
+                <label>Contraseña:</label>
+                {{ form.password1 }}
+                {% if form.password1.errors %}
+                    <div class="alert alert-danger">{{ form.password1.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="form-group">
+                <label>Confirmar Contraseña:</label>
+                {{ form.password2 }}
+                {% if form.password2.errors %}
+                    <div class="alert alert-danger">{{ form.password2.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">Guardar registro</button>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
