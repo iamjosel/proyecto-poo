@@ -8,6 +8,7 @@
             <td>#</td>
             <td>Nombre Receta</td>
             <td>Tipo de receta</td>
+            <td>Dueño de la receta</td>
             <td>Pasos</td>
             <td>Ingredientes</td>
             <td>Descripcion</td>
@@ -22,9 +23,11 @@
             <td>{{ recetas.id }}</td>
             <td>{{ recetas.receta }}</td>
             <td>{{ recetas.tipo.nombre }}</td>
+            <td>{{ recetas.chef.nombres }} {{ recetas.chef.apellidos }}</td>
             <td>{{ recetas.pasos }}</td>
             <td>{{ recetas.ingredientes }}</td>
             <td>{{ recetas.descripcion }}</td>
+
             <td>
                 {% if recetas.imagen %}
                     <img src="{{ recetas.imagen.url }}" alt="Imagen de la receta" style="max-width: 100px; max-height: 100px;">

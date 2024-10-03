@@ -10,7 +10,7 @@ class DescripcionForm(forms.ModelForm):
 
         ]
         labels = {
-            'nombre': 'Tipo de receta',
+            'nombre': 'Tipo de receta: ',
         }
         widgets = {
         }
