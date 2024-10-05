@@ -4,57 +4,67 @@
 <h1>Registrar Chef</h1>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-
+    {{ form.non_field_errors }}
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="form-group">
                 <label for="{{ form.tipo_documento.id_for_label }}">{{ form.tipo_documento.label }}</label>
                 {{ form.tipo_documento }}
+                {{ form.tipo_documento.errors }}
             </div>
 
             <div class="form-group">
                 <label for="{{ form.nombres.id_for_label }}">{{ form.nombres.label }}</label>
                 {{ form.nombres }}
+                {{ form.nombres.errors }}
             </div>
 
             <div class="form-group">
                 <label for="{{ form.apellidos.id_for_label }}">{{ form.apellidos.label }}</label>
                 {{ form.apellidos }}
+                {{ form.apellidos.errors }}
             </div>
 
             <div class="form-group">
                 <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
                 {{ form.email }}
+                {{ form.email.errors }}
             </div>
 
             <div class="form-group">
                 <label for="{{ form.celular.id_for_label }}">{{ form.celular.label }}</label>
                 {{ form.celular }}
+                {{ form.celular.errors }}
             </div>
 
             <div class="form-group">
                 <label for="{{ form.instagram.id_for_label }}">{{ form.instagram.label }}</label>
                 {{ form.instagram }}
+                {{ form.instagram.errors }}
             </div>
 
             <div class="form-group">
                 <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
                 {{ form.username }}
+                {{ form.username.errors }}
             </div>
 
             <div class="form-group">
                 <label for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
                 {{ form.password1 }}
+                {{ form.password1.errors }}
             </div>
 
             <div class="form-group">
                 <label for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>
                 {{ form.password2 }}
+                {{ form.password2.errors }}
             </div>
 
             <div class="form-group">
                 <label for="{{ form.foto.id_for_label }}">{{ form.foto.label }}</label>
                 {{ form.foto }}
+                {{ form.foto.errors }}
             </div>
 
             <div class="form-group">

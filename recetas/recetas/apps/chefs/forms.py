@@ -2,12 +2,22 @@ from django import forms
 from .models import Chef
 
 class RegistroChefForm(forms.ModelForm):
-    password1 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Contraseña'}), max_length=100, required=True, error_messages={'required': 'Este campo es obligatorio'})
-    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Confirmar Contraseña'}), max_length=100, required=True, error_messages={'required': 'Este campo es obligatorio'})
+    password1 = forms.CharField(
+        widget=forms.PasswordInput(attrs={'placeholder': 'Contraseña'}),
+        max_length=100,
+        required=True,
+        error_messages={'required': 'Este campo es obligatorio'}
+    )
+    password2 = forms.CharField(
+        widget=forms.PasswordInput(attrs={'placeholder': 'Confirmar Contraseña'}),
+        max_length=100,
+        required=True,
+        error_messages={'required': 'Este campo es obligatorio'}
+    )
 
     class Meta:
         model = Chef
-        fields = ['tipo_documento', 'nombres', 'apellidos', 'email', 'celular', 'instagram', 'username', 'foto', 'password1', 'password2']
+        fields = ['tipo_documento', 'nombres', 'apellidos', 'email', 'celular', 'instagram', 'username', 'foto']
         error_messages = {
             'tipo_documento': {'required': 'Este campo es obligatorio'},
             'nombres': {'required': 'Este campo es obligatorio'},
@@ -16,7 +26,6 @@ class RegistroChefForm(forms.ModelForm):
             'username': {'required': 'Este campo es obligatorio'},
             'celular': {'required': 'Este campo es obligatorio'},
         }
-
         widgets = {
             'tipo_documento': forms.Select(attrs={'class': 'form-control', 'placeholder': 'ejemplo: Cédula de Ciudadanía'}),
             'nombres': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ejemplo: Lionel'}),
@@ -34,7 +43,8 @@ class RegistroChefForm(forms.ModelForm):
         password2 = cleaned_data.get("password2")
 
         if password1 and password2 and password1 != password2:
-            raise forms.ValidationError("Las contraseñas no coinciden")
+            self.add_error('password1', "Las contraseñas no coinciden")
+            self.add_error('password2', "Las contraseñas no coinciden")
 
         return cleaned_data
 
