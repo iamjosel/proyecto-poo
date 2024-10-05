@@ -26,6 +26,18 @@ class RegistroChefForm(forms.ModelForm):
             'username': {'required': 'Este campo es obligatorio'},
             'celular': {'required': 'Este campo es obligatorio'},
         }
+        labels = {
+            'tipo_documento': 'Tipo Documento:',
+            'nombres': 'Nombres:',
+            'apellidos': 'Apellidos:',
+            'email': 'Correo Electrónico:',
+            'celular': 'Número de Celular:',
+            'instagram': 'Instagram:',
+            'username': 'Username:',
+            'password': 'Password 1:',
+            'password': 'Password 2:',
+            'foto': 'Foto:',
+        }
         widgets = {
             'tipo_documento': forms.Select(attrs={'class': 'form-control', 'placeholder': 'ejemplo: Cédula de Ciudadanía'}),
             'nombres': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ejemplo: Lionel'}),
