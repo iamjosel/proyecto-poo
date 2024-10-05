@@ -13,6 +13,7 @@ class DescripcionForm(forms.ModelForm):
             'nombre': 'Tipo de receta: ',
         }
         widgets = {
+            'nombre': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ejemplo: Postre'}),
         }
 
 class RecetaForm(forms.ModelForm):

@@ -27,11 +27,11 @@ class RecetasForm(forms.ModelForm):
 
         }
         widgets = {
-            'receta': forms.TextInput(attrs={'class':'form-control'}),
-            'tipo': forms.Select(attrs={'class:': 'form-control'}),
-            'chef': forms.Select(attrs={'class:': 'form-control'}),
-            'pasos': forms.Textarea(attrs={'class': 'form-control'}),
-            'ingredientes': forms.Textarea(attrs={'class': 'form-control'}),
-            'descripcion': forms.Textarea(attrs={'class': 'form-control'}),
-            'imagen': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'receta': forms.TextInput(attrs={'class':'form-control', 'placeholder': 'ejemplo: Tarta de Manzana'}),
+            'tipo': forms.Select(attrs={'class:': 'form-control', 'placeholder': 'ejemplo: Postre'}),
+            'chef': forms.Select(attrs={'class:': 'form-control', 'placeholder': 'ejemplo: Salt Bae'}),
+            'pasos': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'ejemplo: 1. Precalentar el horno a 180°C.\n2. Pelar y cortar las manzanas.\n3. Mezclar las manzanas con azúcar y canela.\n4. Colocar la mezcla en una base de masa.\n5. Hornear durante 45 minutos.'}),
+            'ingredientes': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'ejemplo: 1. 4 manzanas\n2. 200g de azúcar\n3. 1 cucharadita de canela\n4. Masa para tarta'}),
+            'descripcion': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'ejemplo: Una deliciosa tarta de manzana con un toque de canela, perfecta para el postre.'}),
+            'imagen': forms.ClearableFileInput(attrs={'class': 'form-control', 'placeholder': 'ejemplo: tarta_manzana.jpg'}),
         }

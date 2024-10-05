@@ -6,9 +6,12 @@
 <p><strong>Pasos:</strong> {{ receta.pasos }}</p>
 <p><strong>Ingredientes:</strong> {{ receta.ingredientes }}</p>
 <p><strong>Descripción:</strong> {{ receta.descripcion }}</p>
+
 {% if receta.imagen %}
     <img src="{{ receta.imagen.url }}" alt="Imagen de la receta" style="max-width: 300px; max-height: 300px;">
 {% else %}
     <p>No hay imagen disponible</p>
 {% endif %}
+
+<a class="btn btn-default" href="{% url 'recetas_listar' %}">Volver</a>
 {% endblock %}

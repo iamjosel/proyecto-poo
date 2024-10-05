@@ -1,0 +1,14 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<h1>Detalle del Chef</h1>
+<p><strong>Nombre:</strong> {{ object.nombres }}</p>
+<p><strong>Apellidos:</strong> {{ object.apellidos }}</p>
+<p><strong>Email:</strong> {{ object.email }}</p>
+<p><strong>Username:</strong> {{ object.username }}</p>
+<p><strong>Instagram:</strong> {{ object.instagram }}</p>
+<p><strong>Celular:</strong> {{ object.celular }}</p>
+<p><strong>Foto:</strong> <img src="{{ object.foto.url }}" alt="Foto del chef" width="200"></p>
+
+<a class="btn btn-default" href="{% url 'chefs_listar' %}">Volver</a>
+{% endblock %}

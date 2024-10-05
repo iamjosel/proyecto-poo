@@ -24,6 +24,7 @@ class Chef(models.Model):
     password = models.CharField(max_length=100, blank=False)
     celular = models.CharField(max_length=10, blank=False, validators=[validate_only_numbers])
     instagram = models.CharField(max_length=100, blank=True)
+    foto = models.ImageField(upload_to='chefs_fotos/', blank=False, null=False)
 
     def __str__(self):
         return f'{self.nombres} {self.apellidos}'

@@ -1,37 +1,46 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
-    <h2>Chefs Registrados</h2>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Tipo de Documento</th>
-                <th>Nombres</th>
-                <th>Apellidos</th>
-                <th>Correo Electrónico</th>
-                <th>Nombre de Usuario</th>
-                <th>Celular</th>
-                <th>Instagram</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% if chefs %}
-                {% for chef in chefs %}
-                    <tr>
-                        <td>{{ chef.tipo_documento }}</td>
-                        <td>{{ chef.nombres }}</td>
-                        <td>{{ chef.apellidos }}</td>
-                        <td>{{ chef.email }}</td>
-                        <td>{{ chef.username }}</td>
-                        <td>{{ chef.celular }}</td>
-                        <td>{{ chef.instagram }}</td>
-                    </tr>
-                {% endfor %}
-            {% else %}
-                <tr>
-                    <td colspan="5">No hay chefs registrados.</td>
-                </tr>
-            {% endif %}
-        </tbody>
-    </table>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <td>ID</td>
+            <td>Tipo Documento</td>
+            <td>Nombre Completo</td>
+            <td>Email</td>
+            <td>Celular</td>
+            <td>Instagram</td>
+            <td>Foto</td>
+            <td>Acciones</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% if chefs %}
+        {% for chef in chefs %}
+        <tr>
+            <td>{{ chef.id }}</td>
+            <td>{{ chef.tipo_documento }}</td>
+            <td>{{ chef.nombres }} {{ chef.apellidos }}</td>
+            <td>{{ chef.email }}</td>
+            <td>{{ chef.celular }}</td>
+            <td>{{ chef.instagram }}</td>
+            <td>
+                {% if chef.foto %}
+                <img src="{{ chef.foto.url }}" alt="{{ chef.nombres }}" width="50">
+                {% else %}
+                No tiene foto
+                {% endif %}
+            </td>
+            <td>
+                <a class="btn btn-primary" href="{% url 'editar_chef' chef.id %}">Editar</a>
+                <a class="btn btn-danger" href="{% url 'eliminar_chef' chef.id %}">Eliminar</a>
+                <a class="btn btn-success" href="{% url 'ver_chef' chef.id %}">Ver</a>
+            </td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <h1>No hay registros de chefs</h1>
+        {% endif %}
+    </tbody>
+</table>
 {% endblock %}

@@ -7,7 +7,7 @@ class RegistroChefForm(forms.ModelForm):
 
     class Meta:
         model = Chef
-        fields = ['tipo_documento', 'nombres', 'apellidos', 'email', 'celular', 'instagram','username', 'password1', 'password2']
+        fields = ['tipo_documento', 'nombres', 'apellidos', 'email', 'celular', 'instagram', 'username', 'foto', 'password1', 'password2']
         error_messages = {
             'tipo_documento': {'required': 'Este campo es obligatorio'},
             'nombres': {'required': 'Este campo es obligatorio'},
@@ -18,13 +18,14 @@ class RegistroChefForm(forms.ModelForm):
         }
 
         widgets = {
-            'tipo_documento': forms.Select(attrs={'class': 'form-control'}),
+            'tipo_documento': forms.Select(attrs={'class': 'form-control', 'placeholder': 'ejemplo: Cédula de Ciudadanía'}),
             'nombres': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ejemplo: Lionel'}),
             'apellidos': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ejemplo: Messi'}),
             'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'ejemplo: lionel@messi.com'}),
             'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ejemplo: lionelmessi'}),
             'instagram': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ejemplo: @liomessi'}),
             'celular': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ejemplo: 3123123132'}),
+            'foto': forms.FileInput(attrs={'class': 'form-control'}),
         }
 
     def clean(self):
