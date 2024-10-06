@@ -5,15 +5,18 @@ from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from django.views.generic.detail import DetailView
 from apps.tipo.models import Descripcion, Receta
 from apps.tipo.forms import DescripcionForm, RecetaForm
-
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .serializers import DescripcionSerializer, RecetaSerializer
 
 def index_tipo(request):
     return HttpResponse("Soy la pagina principal de la app tipo")
 
-
 class TipoList(ListView):
     model = Receta
     template_name = 'tipo/tipo_list.html'
+    context_object_name = 'object_list'  # Asegura que el contexto sea correcto
 
 class TipoCreate(CreateView):
     model = Receta
@@ -25,22 +28,21 @@ class TipoCreate(CreateView):
     def get_context_data(self, **kwargs):
         context = super(TipoCreate, self).get_context_data(**kwargs)
         if 'form' not in context:
-            context['form'] = self.get_form_class(self.request.GET)
+            context['form'] = self.get_form_class()
         if 'form2' not in context:
-            context['form2'] = self.second_form_class(self.request.GET)
+            context['form2'] = self.second_form_class()
         return context
 
     def post(self, request, *args, **kwargs):
-        self.object = self.get_object
         form = self.form_class(request.POST)
         form2 = self.second_form_class(request.POST)
         if form.is_valid() and form2.is_valid():
-            plato = form.save(commit=False)
-            plato.descripcion = form2.save()
-            plato.save()
+            descripcion = form2.save()  # Guardar la descripción primero
+            receta = form.save(commit=False)  # Crear la receta pero no guardar aún
+            receta.descripcion = descripcion  # Asignar la descripción a la receta
+            receta.save()  # Guardar la receta con la descripción asociada
             return HttpResponseRedirect(self.get_success_url())
-        else:
-            return self.render_to_response(self.get_context_data(form=form, form2=form2))
+        return self.render_to_response(self.get_context_data(form=form, form2=form2))
 
 class TipoUpdate(UpdateView):
     model = Receta
@@ -84,3 +86,121 @@ class TipoDelete(DeleteView):
 class TipoDetail(DetailView):
     model = Receta
     template_name = 'tipo/tipo_detalle.html'
+    
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .models import Descripcion, Receta
+from .serializers import DescripcionSerializer, RecetaSerializer
+
+# Vistas para Descripcion
+
+@api_view(['GET', 'POST'])
+def descripcion_list(request):
+    if request.method == 'GET':
+        descripciones = Descripcion.objects.all()
+        serializer = DescripcionSerializer(descripciones, many=True)
+        return Response(serializer.data)
+    
+    elif request.method == 'POST':
+        serializer = DescripcionSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def descripcion_detail(request, pk):
+    try:
+        descripcion = Descripcion.objects.get(pk=pk)
+    except Descripcion.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = DescripcionSerializer(descripcion)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = DescripcionSerializer(descripcion, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        descripcion.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET', 'POST'])
+def descripcion_list(request):
+    if request.method == 'GET':
+        descripciones = Descripcion.objects.all()
+        serializer = DescripcionSerializer(descripciones, many=True)
+        return Response(serializer.data)
+    
+    elif request.method == 'POST':
+        serializer = DescripcionSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def descripcion_detail(request, pk):
+    try:
+        descripcion = Descripcion.objects.get(pk=pk)
+    except Descripcion.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = DescripcionSerializer(descripcion)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = DescripcionSerializer(descripcion, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        descripcion.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+# Vistas para Receta
+
+@api_view(['GET', 'POST'])
+def receta_list(request):
+    if request.method == 'GET':
+        recetas = Receta.objects.all()
+        serializer = RecetaSerializer(recetas, many=True)
+        return Response(serializer.data)
+    
+    elif request.method == 'POST':
+        serializer = RecetaSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def receta_detail(request, pk):
+    try:
+        receta = Receta.objects.get(pk=pk)
+    except Receta.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = RecetaSerializer(receta)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = RecetaSerializer(receta, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        receta.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
