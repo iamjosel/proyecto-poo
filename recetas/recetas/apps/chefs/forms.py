@@ -2,19 +2,6 @@ from django import forms
 from .models import Chef
 
 class RegistroChefForm(forms.ModelForm):
-    password1 = forms.CharField(
-        widget=forms.PasswordInput(attrs={'placeholder': 'Contraseña'}),
-        max_length=100,
-        required=True,
-        error_messages={'required': 'Este campo es obligatorio'}
-    )
-    password2 = forms.CharField(
-        widget=forms.PasswordInput(attrs={'placeholder': 'Confirmar Contraseña'}),
-        max_length=100,
-        required=True,
-        error_messages={'required': 'Este campo es obligatorio'}
-    )
-
     class Meta:
         model = Chef
         fields = ['tipo_documento', 'nombres', 'apellidos', 'email', 'celular', 'instagram', 'username', 'foto']
@@ -34,8 +21,6 @@ class RegistroChefForm(forms.ModelForm):
             'celular': 'Número de Celular:',
             'instagram': 'Instagram:',
             'username': 'Username:',
-            'password': 'Password 1:',
-            'password': 'Password 2:',
             'foto': 'Foto:',
         }
         widgets = {
@@ -48,21 +33,3 @@ class RegistroChefForm(forms.ModelForm):
             'celular': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ejemplo: 3123123132'}),
             'foto': forms.FileInput(attrs={'class': 'form-control'}),
         }
-
-    def clean(self):
-        cleaned_data = super().clean()
-        password1 = cleaned_data.get("password1")
-        password2 = cleaned_data.get("password2")
-
-        if password1 and password2 and password1 != password2:
-            self.add_error('password1', "Las contraseñas no coinciden")
-            self.add_error('password2', "Las contraseñas no coinciden")
-
-        return cleaned_data
-
-    def save(self, commit=True):
-        chef = super().save(commit=False)
-        chef.password = self.cleaned_data["password1"]
-        if commit:
-            chef.save()
-        return chef
