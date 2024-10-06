@@ -21,7 +21,6 @@ class Chef(models.Model):
     apellidos = models.CharField(max_length=70, blank=False, validators=[validate_only_letters])
     email = models.EmailField(max_length=100, blank=False)
     username = models.CharField(max_length=70, blank=False)
-    password = models.CharField(max_length=100, blank=False)
     celular = models.CharField(max_length=10, blank=False, validators=[validate_only_numbers])
     instagram = models.CharField(max_length=100, blank=True)
     foto = models.ImageField(upload_to='chefs_fotos/', blank=False, null=False)
