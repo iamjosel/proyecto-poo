@@ -38,10 +38,10 @@ class TipoCreate(CreateView):
         form2 = self.second_form_class(request.POST)
         
         if form.is_valid() and form2.is_valid():
-            descripcion = form2.save()  # Save description first
-            receta = form.save(commit=False)  # Create recipe but don't save yet
-            receta.descripcion = descripcion  # Assign description to recipe
-            receta.save()  # Save recipe with description
+            descripcion = form2.save() 
+            receta = form.save(commit=False) 
+            receta.descripcion = descripcion 
+            receta.save()  
             return HttpResponseRedirect(self.success_url)
         return self.render_to_response(self.get_context_data(form=form, form2=form2))
 
