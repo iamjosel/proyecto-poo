@@ -1,34 +1,35 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
+<h2>Lista de Recetas</h2>
 
 <table class="table table-bordered">
     <thead>
         <tr>
-            <td>Numero de receta</td>
-            <td>Tipo de receta</td>
-            <td>Acciones</td>
+            <th>Número de receta</th>
+            <th>Tipo de receta</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
-        {% if object_list %}
-        {% for plato in object_list %}
-        <tr>
-            <td>{{ plato.id }}</td>
-            <td>{{ plato.descripcion.nombre }}</td>
-
-            <td>
-                <a class="btn btn-primary" href="{% url 'tipo_editar' plato.id %}">Editar</a>
-                <a class="btn btn-danger" href="{% url 'tipo_eliminar' plato.id %}">Eliminar</a>
-                <a class="btn btn-success" href="{% url 'tipo_detalle' plato.id %}">Ver</a>
-
-            </td>
-        </tr>
-        {% endfor %}
-
+        {% if recetas %}
+            {% for receta in recetas %}
+            <tr>
+                <td>{{ receta.id }}</td>
+                <td>{{ receta.descripcion.nombre }}</td>  <!-- Mostrar el nombre de la descripción -->
+                <td>
+                    <a class="btn btn-primary" href="{% url 'tipo_editar' receta.id %}">Editar</a>
+                    <a class="btn btn-danger" href="{% url 'tipo_eliminar' receta.id %}">Eliminar</a>
+                    <a class="btn btn-success" href="{% url 'tipo_detalle' receta.id %}">Ver</a>
+                </td>
+            </tr>
+            {% endfor %}
         {% else %}
-        <h1>No hay registros de Tipos de recetas</h1>
+            <tr>
+                <td colspan="3">No hay registros de recetas</td>
+            </tr>
         {% endif %}
     </tbody>
 </table>
+
 {% endblock %}
