@@ -54,7 +54,7 @@ def recetas_delete(request, id_recetas):
 class RecetasList(ListView):
     model = Recetas
     template_name = 'recetas/recetas_list.html'
-    paginate_by = 2
+    paginate_by = 5
 
 # Clase para crear receta
 class RecetasCreate(CreateView):

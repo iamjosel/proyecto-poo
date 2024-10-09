@@ -8,7 +8,6 @@ from apps.tipo.forms import DescripcionForm, RecetaForm
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import DescripcionSerializer, RecetaSerializer
 
 def index_tipo(request):
     return HttpResponse("Soy la pagina principal de la app tipo")
@@ -17,6 +16,7 @@ class TipoList(ListView):
     model = Receta
     template_name = 'tipo/tipo_list.html'
     context_object_name = 'recetas' 
+    paginate_by = 5
 
 class TipoCreate(CreateView):
     model = Receta
@@ -89,12 +89,6 @@ class TipoDetail(DetailView):
     model = Receta
     template_name = 'tipo/tipo_detalle.html'
     
-from rest_framework import status
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from .models import Descripcion, Receta
-from .serializers import DescripcionSerializer, RecetaSerializer
-
 # Vistas para Descripcion
 
 @api_view(['GET', 'POST'])
