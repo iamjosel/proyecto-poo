@@ -4,7 +4,7 @@ from .models import Descripcion, Receta
 class DescripcionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Descripcion
-        fields = '__all__'
+        fields = ['nombre']
 
 class RecetaSerializer(serializers.ModelSerializer):
     descripcion = DescripcionSerializer()  # Para incluir el detalle de la descripción

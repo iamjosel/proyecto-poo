@@ -2,6 +2,10 @@ from django.views.generic import UpdateView, CreateView, ListView, DetailView, D
 from django.urls import reverse_lazy
 from .models import Chef
 from .forms import RegistroChefForm
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .serializers import ChefSerializer
 
 class RegistroChef(CreateView):
     model = Chef
@@ -19,6 +23,7 @@ class ListarChefs(ListView):
     model = Chef
     template_name = "chefs/listar_chefs.html"
     context_object_name = 'chefs'
+    paginate_by = 5
 
 class VerChef(DetailView):
     model = Chef
@@ -29,12 +34,6 @@ class EliminarChef(DeleteView):
     model = Chef
     template_name = "chefs/eliminar_chef.html"
     success_url = reverse_lazy('chefs_listar')
-
-from rest_framework import status
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from .models import Chef
-from .serializers import ChefSerializer
 
 # GET, POST
 @api_view(['GET', 'POST'])

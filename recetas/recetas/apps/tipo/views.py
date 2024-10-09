@@ -8,7 +8,6 @@ from apps.tipo.forms import DescripcionForm, RecetaForm
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import DescripcionSerializer, RecetaSerializer
 
 def index_tipo(request):
     return HttpResponse("Soy la pagina principal de la app tipo")
@@ -16,7 +15,8 @@ def index_tipo(request):
 class TipoList(ListView):
     model = Receta
     template_name = 'tipo/tipo_list.html'
-    context_object_name = 'object_list'  # Asegura que el contexto sea correcto
+    context_object_name = 'recetas' 
+    paginate_by = 5
 
 class TipoCreate(CreateView):
     model = Receta
@@ -28,7 +28,7 @@ class TipoCreate(CreateView):
     def get_context_data(self, **kwargs):
         context = super(TipoCreate, self).get_context_data(**kwargs)
         if 'form' not in context:
-            context['form'] = self.get_form_class()
+            context['form'] = self.get_form_class()()
         if 'form2' not in context:
             context['form2'] = self.second_form_class()
         return context
@@ -36,13 +36,15 @@ class TipoCreate(CreateView):
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         form2 = self.second_form_class(request.POST)
+        
         if form.is_valid() and form2.is_valid():
-            descripcion = form2.save()  # Guardar la descripción primero
-            receta = form.save(commit=False)  # Crear la receta pero no guardar aún
-            receta.descripcion = descripcion  # Asignar la descripción a la receta
-            receta.save()  # Guardar la receta con la descripción asociada
-            return HttpResponseRedirect(self.get_success_url())
+            descripcion = form2.save() 
+            receta = form.save(commit=False) 
+            receta.descripcion = descripcion 
+            receta.save()  
+            return HttpResponseRedirect(self.success_url)
         return self.render_to_response(self.get_context_data(form=form, form2=form2))
+
 
 class TipoUpdate(UpdateView):
     model = Receta
@@ -87,12 +89,6 @@ class TipoDetail(DetailView):
     model = Receta
     template_name = 'tipo/tipo_detalle.html'
     
-from rest_framework import status
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from .models import Descripcion, Receta
-from .serializers import DescripcionSerializer, RecetaSerializer
-
 # Vistas para Descripcion
 
 @api_view(['GET', 'POST'])
